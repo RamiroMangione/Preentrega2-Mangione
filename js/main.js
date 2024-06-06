@@ -1,62 +1,90 @@
-console.log("hola");
-class producto{
-    constructor (nombre, precio,){
-        this.nombre=nombre;
-        this.precio=precio;
-        this.cantidad=0;
+
+const cabeza = document.head;
+const cuerpo = document.body;
+const title = document.createElement("title");
+title.innerHTML = "Kiosco Digital";
+cabeza.appendChild(title);
+const h1 = document.createElement("h1");
+h1.innerHTML = "Kiosco Digital";
+cuerpo.appendChild(h1)
+h1.classList.add("titulo")
+const contenedor = document.createElement("div");
+cuerpo.appendChild(contenedor);
+contenedor.classList.add("gondola")
+
+
+const arraydeproductos = [
+    {
+        nombre: "Chocolate",
+        precio: 100,
+        cantidad: 0
+    },
+    {
+        nombre: "Agua",
+        precio: 50,
+        cantidad: 0
+    },
+    {
+        nombre: "Coca",
+        precio: 80,
+        cantidad: 0
+    },
+    {
+        nombre: "Pan",
+        precio: 60,
+        cantidad: 0
+    },
+    {
+        nombre: "Alfajor",
+        precio: 110,
+        cantidad: 0
     }
-    agregar(pedido){
-        this.cantidad=this.cantidad+pedido
+]
+let count = 0
+total = 0
+
+
+for (producto of arraydeproductos){
+    const linea = document.createElement("div");
+    contenedor.appendChild(linea);
+    linea.classList.add("linea")
+    const articulos = document.createElement("div");
+    linea.appendChild(articulos);
+    articulos.innerHTML = `${producto.nombre}`;
+    const precios = document.createElement("div");
+    linea.appendChild(precios);
+    precios.innerHTML = `${producto.precio}`
+    articulos.classList.add("precio")
+    const boton = document.createElement("button");
+    linea.appendChild(boton);
+    boton.innerHTML = "Agregar";
+    boton.classList.add("boton")
+    boton.id = `${producto.nombre}`
+    boton.addEventListener("click",agregar)
+    cantidades = document.createElement("div");
+    linea.appendChild(cantidades);
+    cantidades.innerHTML = `${producto.cantidad}`
+    const boton2 = document.createElement("button");
+    linea.appendChild(boton2);
+    boton2.innerHTML = "Quitar";
+    boton2.classList.add("boton2")
+    boton2.id = `${producto.nombre + "2"}`
+    boton2.addEventListener("click",quitar)
+    function agregar(){
+        count ++
+        total = total + parseInt(precios.innerHTML)
+        console.log(total)
+        console.log(articulos.innerHTML)
+        localStorage.setItem("total",total)
+        localStorage.setItem("cantidad de objetos",count)
+    }
+        function quitar(){
+            console.log(count)
+            if (count > 0){
+                count --
+                total = total - parseInt(precios.innerHTML)
+                localStorage.setItem ("cantidad de objetos",count)
+                localStorage.setItem("total",total)
+            }
     }
 }
-function compra(){
-    let finCompra = false;
-    let total = 0
-
-    const chocolate = new producto("Chocolate",100,0);
-    const agua = new producto("Agua",50,0);
-    const coca = new producto("Coca",80,0);
-    const pan = new producto("Pan",60,0);
-    const alfajor = new producto("Alfajor",110,0);
-    let carrito=[chocolate,agua,coca,pan,alfajor];
-
-    while(finCompra === false){
-        const ingreso = parseInt( prompt("¿Que queres comprar hoy? \n1. Chocolate $100\n2. Agua $50\n3. Coca $80\n4. Pan $60\n5. Alfajor $110 \n\n0. Finalizar compra"));
-        if (ingreso == 0){
-            for (let i = 0; i < carrito.length; i++) {
-            total = total + (carrito[i].precio*carrito[i].cantidad)
-        }
-            alert("Su total a pagar es:$"+total)
-            finCompra = true;
-            const volver = parseInt (prompt("Si quiere realizar otra compra ingrese 1"))
-            if (volver == 1){
-                compra()
-            }
-        }
-        if (ingreso == 1){
-            const cantidad = parseInt(prompt("Ingrese cuantas unidades quiere"))
-            chocolate.agregar(cantidad)
-        }
-        if (ingreso == 2){
-            const cantidad = parseInt(prompt("Ingrese cuantas unidades quiere"))
-            agua.agregar(cantidad)
-        }
-        if (ingreso == 3){
-            const cantidad = parseInt(prompt("Ingrese cuantas unidades quiere"))
-            coca.agregar(cantidad)
-        }
-        if (ingreso == 4){
-            const cantidad = parseInt(prompt("Ingrese cuantas unidades quiere"))
-            pan.agregar(cantidad)
-        }
-        if (ingreso == 5){
-            const cantidad = parseInt(prompt("Ingrese cuantas unidades quiere"))
-            alfajor.agregar(cantidad)
-        }
-    }
-    console.log("detalle de su pedido")
-    for (let i = 0; i < carrito.length; i++) {
-        console.log(carrito[i].nombre+"  $"+carrito[i].precio+"  "+carrito[i].cantidad)
-    }
-};
-    compra();
