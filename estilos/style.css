@@ -1,11 +1,100 @@
-.linea{
+/* Estilos generales */
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1.titulo {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    margin: 0;
+}
+
+.gondola {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    padding: 20px;
+}
+
+.linea {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+    background-color: white;
     padding: 10px;
-    margin: 10px;
-    background-color: rgb(255, 255, 255);
-    font-size: 20px;
-    width: 70%;
+    margin: 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.productos {
+    flex: 2;
+    text-align: left;
+    margin: 0 10px;
+}
+
+.precio {
+    flex: 1;
+    text-align: right;
+    margin: 0 10px;
+}
+
+.cantidades {
+    flex: 1;
+    text-align: center;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    
+}
+
+.boton, .boton2 {
+    flex: 1;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.boton {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.boton2 {
+    background-color: #f44336;
+    color: white;
+}
+
+.boton:hover, .boton2:hover {
+    opacity: 0.8;
+}
+
+.totales {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .linea {
+        width: 90%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productos, .precio, .boton, .boton2, .cantidades {
+        margin: 5px 0;
+        text-align: left;
+    }
+
+    .precio, .cantidades {
+        text-align: right;
+    }
 }

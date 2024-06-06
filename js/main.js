@@ -1,17 +1,17 @@
-
 const cabeza = document.head;
 const cuerpo = document.body;
 const title = document.createElement("title");
 title.innerHTML = "Kiosco Digital";
 cabeza.appendChild(title);
+
 const h1 = document.createElement("h1");
 h1.innerHTML = "Kiosco Digital";
-cuerpo.appendChild(h1)
-h1.classList.add("titulo")
+cuerpo.appendChild(h1);
+h1.classList.add("titulo");
+
 const contenedor = document.createElement("div");
 cuerpo.appendChild(contenedor);
-contenedor.classList.add("gondola")
-
+contenedor.classList.add("gondola");
 
 const arraydeproductos = [
     {
@@ -39,52 +39,87 @@ const arraydeproductos = [
         precio: 110,
         cantidad: 0
     }
-]
-let count = 0
-total = 0
+];
+
+let count = 0;
+total = 0;
+
+for (let i = 0; i < localStorage.length; i++)
+    {
+    let clave = localStorage.key(i);
+    let valor = localStorage.getItem(clave);
+    if (clave == "total"){
+        total = JSON.parse(valor); 
+    }
+    const productoEncontrado = arraydeproductos.find(producto => producto.nombre == clave);
+    if(productoEncontrado){
+        productoEncontrado.cantidad = valor;
+    }
+}
 
 
-for (producto of arraydeproductos){
+for (let producto of arraydeproductos) {
     const linea = document.createElement("div");
     contenedor.appendChild(linea);
-    linea.classList.add("linea")
+    linea.classList.add("linea");
     const articulos = document.createElement("div");
     linea.appendChild(articulos);
     articulos.innerHTML = `${producto.nombre}`;
+    articulos.classList.add("productos");
+
     const precios = document.createElement("div");
     linea.appendChild(precios);
-    precios.innerHTML = `${producto.precio}`
-    articulos.classList.add("precio")
+    precios.innerHTML = `$${producto.precio}`;
+
     const boton = document.createElement("button");
     linea.appendChild(boton);
     boton.innerHTML = "Agregar";
-    boton.classList.add("boton")
-    boton.id = `${producto.nombre}`
-    boton.addEventListener("click",agregar)
-    cantidades = document.createElement("div");
+    boton.classList.add("boton");
+    boton.id = `${producto.nombre}`;
+
+    const cantidades = document.createElement("div");
     linea.appendChild(cantidades);
-    cantidades.innerHTML = `${producto.cantidad}`
+    cantidades.innerHTML = `${producto.cantidad}`;
+    cantidades.classList.add("cantidades");
+
     const boton2 = document.createElement("button");
     linea.appendChild(boton2);
     boton2.innerHTML = "Quitar";
-    boton2.classList.add("boton2")
-    boton2.id = `${producto.nombre + "2"}`
-    boton2.addEventListener("click",quitar)
-    function agregar(){
-        count ++
-        total = total + parseInt(precios.innerHTML)
-        console.log(total)
-        console.log(articulos.innerHTML)
-        localStorage.setItem("total",total)
-        localStorage.setItem("cantidad de objetos",count)
-    }
-        function quitar(){
-            console.log(count)
-            if (count > 0){
-                count --
-                total = total - parseInt(precios.innerHTML)
-                localStorage.setItem ("cantidad de objetos",count)
-                localStorage.setItem("total",total)
-            }
+    boton2.classList.add("boton2");
+    boton2.id = `${producto.nombre + "2"}`;
+
+    boton.addEventListener("click", function() {
+        agregar(producto, cantidades);
+    });
+
+    boton2.addEventListener("click", function() {
+        quitar(producto, cantidades);
+    });
+}
+
+function agregar(producto, cantidades) {
+    count++;
+    total += producto.precio;
+    producto.cantidad++;
+    cantidades.innerHTML = `${producto.cantidad}`;
+    localStorage.setItem("total", total);
+    localStorage.setItem(producto.nombre, producto.cantidad);
+    totales.innerHTML = `Total: $${total}`;
+}
+
+function quitar(producto, cantidades) {
+    if (producto.cantidad > 0) {
+        count--;
+        total -= producto.precio;
+        producto.cantidad--;
+        cantidades.innerHTML = `${producto.cantidad}`;
+        localStorage.setItem("total", total);
+        localStorage.setItem(producto.nombre, producto.cantidad);
+        totales.innerHTML = `Total: $${total}`;
     }
 }
+
+const totales = document.createElement("div");
+cuerpo.appendChild(totales);
+totales.innerHTML = `Total: $${total}`;
+totales.classList.add("totales");
