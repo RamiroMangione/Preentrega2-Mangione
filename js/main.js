@@ -59,34 +59,37 @@ for (let i = 0; i < localStorage.length; i++)
 
 
 for (let producto of arraydeproductos) {
+    const { nombre, precio, cantidad } = producto; // Desestructuración de objeto
+
     const linea = document.createElement("div");
     contenedor.appendChild(linea);
     linea.classList.add("linea");
+
     const articulos = document.createElement("div");
     linea.appendChild(articulos);
-    articulos.innerHTML = `${producto.nombre}`;
+    articulos.innerHTML = nombre;
     articulos.classList.add("productos");
 
     const precios = document.createElement("div");
     linea.appendChild(precios);
-    precios.innerHTML = `$${producto.precio}`;
+    precios.innerHTML = `$${precio}`;
 
     const boton = document.createElement("button");
     linea.appendChild(boton);
     boton.innerHTML = "Agregar";
     boton.classList.add("boton");
-    boton.id = `${producto.nombre}`;
+    boton.id = nombre;
 
     const cantidades = document.createElement("div");
     linea.appendChild(cantidades);
-    cantidades.innerHTML = `${producto.cantidad}`;
+    cantidades.innerHTML = cantidad;
     cantidades.classList.add("cantidades");
 
     const boton2 = document.createElement("button");
     linea.appendChild(boton2);
     boton2.innerHTML = "Quitar";
     boton2.classList.add("boton2");
-    boton2.id = `${producto.nombre + "2"}`;
+    boton2.id = `${nombre}2`;
 
     boton.addEventListener("click", function() {
         agregar(producto, cantidades);
