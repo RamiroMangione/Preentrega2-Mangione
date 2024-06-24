@@ -1,0 +1,23 @@
+{
+  "name": "trabajofinaljs",
+  "version": "1.0.0",
+  "description": "tp final de js",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamiroMangione/Preentrega2-Mangione.git"
+  },
+  "author": "ramiro mangione",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RamiroMangione/Preentrega2-Mangione/issues"
+  },
+  "homepage": "https://github.com/RamiroMangione/Preentrega2-Mangione#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "toastify-js": "^1.12.0"
+  }
+}

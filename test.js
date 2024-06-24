@@ -71,15 +71,7 @@ async function consumirApi() {
             producto.imagen = datos[0].thumbnail;
         }
     }
-    generarHTML(); // Llamar a la función de generación de HTML después de obtener las imágenes
-}
-
-// Definir la variable `totales` fuera de la función `generarHTML` para que sea accesible globalmente
-const totales = document.createElement("div");
-cuerpo.appendChild(totales);
-totales.innerHTML = `Total: $${total}`;
-totales.classList.add("totales");
-
+    generarHTML(); }
 function generarHTML() {
     for (let producto of arraydeproductos) {
         const { nombre, precio, cantidad, imagen } = producto;
@@ -90,7 +82,7 @@ function generarHTML() {
 
         if (imagen) {
             const img = document.createElement("img");
-            img.src = imagen; // Usar la URL completa de la imagen
+            img.src = imagen; 
             img.alt = nombre;
             img.classList.add("imagen-producto");
             linea.appendChild(img);
@@ -163,28 +155,14 @@ function generarHTML() {
             quitar(producto, cantidades);
         });
     }
+
+    const totales = document.createElement("div");
+    cuerpo.appendChild(totales);
+    totales.innerHTML = `Total: $${total}`;
+    totales.classList.add("totales");
 }
 
 function agregar(producto, cantidades) {
     count++;
     total += producto.precio;
-    producto.cantidad++;
-    cantidades.innerHTML = `${producto.cantidad}`;
-    localStorage.setItem("total", total);
-    localStorage.setItem(producto.nombre, producto.cantidad);
-    totales.innerHTML = `Total: $${total}`;
 }
-
-function quitar(producto, cantidades) {
-    if (producto.cantidad > 0) {
-        count--;
-        total -= producto.precio;
-        producto.cantidad--;
-        cantidades.innerHTML = `${producto.cantidad}`;
-        localStorage.setItem("total", total);
-        localStorage.setItem(producto.nombre, producto.cantidad);
-        totales.innerHTML = `Total: $${total}`;
-    }
-}
-
-consumirApi(); // Inicializar la aplicación y cargar las imágenes asincrónicamente
