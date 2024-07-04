@@ -27,13 +27,13 @@ const arraydeproductos = [
         imagen: ""
     },
     {
-        nombre: "Coca",
+        nombre: "Coca Cola",
         precio: 80,
         cantidad: 0,
         imagen: ""
     },
     {
-        nombre: "Pan",
+        nombre: "Pan lactal",
         precio: 60,
         cantidad: 0,
         imagen: ""
